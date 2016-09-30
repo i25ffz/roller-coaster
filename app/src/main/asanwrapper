@@ -1,0 +1,6 @@
+#!/system/bin/sh
+ASAN_OPTIONS="start_deactivated=1:abort_on_error=1:log_path=/sdcard/asan/report:alloc_dealloc_mismatch=0:handle_segv=0" \
+LD_LIBRARY_PATH="/system/lib:$LD_LIBRARY_PATH" \
+LD_PRELOAD="libclang_rt.asan-arm-android.so" \
+exec $@
+
