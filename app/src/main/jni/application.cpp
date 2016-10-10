@@ -28,6 +28,7 @@
 
 #define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO, "rollercoaster", __VA_ARGS__))
 #define LOGW(...) ((void)__android_log_print(ANDROID_LOG_WARN, "rollercoaster", __VA_ARGS__))
+#define LOGE(...) ((void)__android_log_print(ANDROID_LOG_ERROR, "rollercoaster", __VA_ARGS__))
 
 #include "rollercoaster.h"
 
@@ -156,24 +157,27 @@ static void engine_draw_frame(struct aengine* engine) {
  * Tear down the EGL context currently associated with the display.
  */
 static void engine_term_display(struct aengine* engine) {
-    if (engine->display != EGL_NO_DISPLAY) {
-        eglMakeCurrent(engine->display, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT);
-        if (engine->context != EGL_NO_CONTEXT) {
-            eglDestroyContext(engine->display, engine->context);
+    if (gRollerCoaster) {
+        if (engine->display != EGL_NO_DISPLAY) {
+            eglMakeCurrent(engine->display, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT);
+            if (engine->context != EGL_NO_CONTEXT) {
+                eglDestroyContext(engine->display, engine->context);
+            }
+            if (engine->surface != EGL_NO_SURFACE) {
+                eglDestroySurface(engine->display, engine->surface);
+            }
+            eglTerminate(engine->display);
         }
-        if (engine->surface != EGL_NO_SURFACE) {
-            eglDestroySurface(engine->display, engine->surface);
-        }
-        eglTerminate(engine->display);
-    }
-    //engine->animating = 0;
-    engine->display = EGL_NO_DISPLAY;
-    engine->context = EGL_NO_CONTEXT;
-    engine->surface = EGL_NO_SURFACE;
+        //engine->animating = 0;
+        engine->display = EGL_NO_DISPLAY;
+        engine->context = EGL_NO_CONTEXT;
+        engine->surface = EGL_NO_SURFACE;
 
-    // destroy demo
-    gRollerCoaster->AppExit();
-    delete gRollerCoaster;
+        // destroy demo
+        gRollerCoaster->AppExit();
+        delete gRollerCoaster;
+        gRollerCoaster = NULL;
+    }
 }
 
 /**
