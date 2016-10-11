@@ -1,15 +1,69 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+apply plugin: 'com.android.application'
+
 buildscript {
     repositories {
-       jcenter()
+        mavenCentral()
     }
+
     dependencies {
-        classpath 'com.android.tools.build:gradle-experimental:0.7.0'
+        classpath 'com.android.tools.build:gradle:1.5.0'
     }
 }
 
-allprojects {
-    repositories {
-        jcenter()
+android {
+    compileSdkVersion 21
+    buildToolsVersion "23.0.1"
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 21
     }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            res.srcDirs = ['res']
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            debuggable false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), rootProject.file('proguard.cfg')
+        }
+
+        debug {
+            minifyEnabled false
+            debuggable true
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
 }
+/*
+task ndkBuild(type: Exec, description: 'Compile JNI source via NDK') {
+    def ndkDir = android.ndkDirectory
+    commandLine "$ndkDir/ndk-build.cmd",
+            '-C', file('jni').absolutePath, // Change src/main/jni the relative path to your jni source
+            '-j', Runtime.runtime.availableProcessors(),
+            'all',
+            'NDK_DEBUG=1'
+}
+
+task ndkClean(type: Exec, description: 'Clean JNI object files') {
+    def ndkDir = android.ndkDirectory
+    commandLine "$ndkDir/ndk-build.cmd",
+            '-C', file('src/main/jni').absolutePath, // Change src/main/jni the relative path to your jni source
+            'clean'
+}
+
+clean.dependsOn 'ndkClean'
+
+tasks.withType(JavaCompile) { compileTask -> compileTask.dependsOn ndkBuild }
+*/

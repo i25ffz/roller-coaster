@@ -4,4 +4,6 @@ APP_STL := gnustl_static
 
 APP_ABI := armeabi-v7a
 
+ifeq ($(CLANG_ASAN),1)
 NDK_TOOLCHAIN_VERSION := clang
+endif
