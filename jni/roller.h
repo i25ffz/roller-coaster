@@ -145,7 +145,7 @@ int DrawRoller(unsigned long tickTime, struct track_desc *trkd, struct engine *e
 int ExitRoller(struct track_desc *trkd, struct engine *eng, struct rail *str, struct curve *stc);
 void SetRollerShadeMode(struct engine *eng, int mode);
 */
-int InitializeRoller(struct rollercoaster *rc, char *filename);
+int InitializeRoller(struct rollercoaster *rc, const char *filename);
 int DrawRoller(unsigned long tickTime, struct rollercoaster *rc);
 int ExitRoller(struct rollercoaster *rc);
 void SetRollerShadeMode(struct rollercoaster *rc, int mode);

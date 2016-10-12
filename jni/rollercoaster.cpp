@@ -118,7 +118,7 @@ void CRollerCoaster::AppInit()
 	iRollerCoaster.supd.pillar_absc = (int*)absc;
 	iRollerCoaster.supd.nbPillarAbsc = 23;
 
-	InitializeRoller(&iRollerCoaster, "");
+	InitializeRoller(&iRollerCoaster, "RollerCoaster");
 }
 
 

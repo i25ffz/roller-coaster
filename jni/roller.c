@@ -1432,7 +1432,7 @@ GLvoid DrawGLScene(unsigned long timeTick, struct rollercoaster *rc, float roll_
 }
 
 
-int InitializeRoller(struct rollercoaster *rc, char *filename)
+int InitializeRoller(struct rollercoaster *rc, const char *filename)
 {
 	point light_dir={1.0f,-0.5f,2.0f};
 	rc->eng.shade_model = GL_SMOOTH;
