@@ -4,7 +4,7 @@ Roller Coaster benchmark for android.
 
 Base from opengl es resource (http://www.khronos.org/opengles/resources) Roller Coaster (http://plusplus.free.fr/rollercoaster/) project(build with gradle or android studio 1.5+).
 
-###ASAN
+### ASAN
 
  - ndk-build CLANG_ASAN=1 (ndk ver >= r11, only testing with r13)
  - adb push asanwrapper /data/local/tmp/
